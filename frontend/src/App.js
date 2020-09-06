@@ -13,12 +13,14 @@ import {
   INSTANT_EXCHANGE_ROUTE,
   ACTIVE_TRADE_ROUTE,
   EXPIRED_TRADE_ROUTE,
+  FAILED_TRADE_ROUTE,
 } from "./routes";
 import CompletedTradesView from "./views/CompletedTradesView";
 import InstantExchange from "./views/InstantExchange";
 import ActiveTradesView from "./views/ActiveTradesView";
 import ExpiredTradeView from "./views/ExpiredTradeView";
 import Dashboard from "./views/Dashboard";
+import FailedTradesView from "./views/FailedTradesView";
 
 const ProtectedRoute = ({ component: Component, ...props }) => {
   const loginStatus = useSelector((state) => state.user.status);
@@ -68,7 +70,12 @@ function App() {
             path={EXPIRED_TRADE_ROUTE}
             component={ExpiredTradeView}
           />
-          <Route exact path={DASHBOARD_ROUTE} component={Dashboard} />
+          <ProtectedRoute exact path={DASHBOARD_ROUTE} component={Dashboard} />
+          <ProtectedRoute
+            exact
+            path={FAILED_TRADE_ROUTE}
+            component={FailedTradesView}
+          />
           <ProtectedRoute component={() => <Redirect to={DASHBOARD_ROUTE} />} />
         </Switch>
       </BrowserRouter>

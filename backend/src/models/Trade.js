@@ -36,6 +36,9 @@ const schema = new mongoose.Schema({
   completeTime: {
     type: Date,
   },
+  errorMessage: {
+    type: String,
+  },
 }, {
   timestamps: true,
 });

@@ -57,17 +57,23 @@ export default function InstantExchange() {
 
       const result = [];
       for (const poolFund of poolFunds) {
-        const activeTrade = activeTrades.find(
-          (item) => item.sourceToken === poolFund.token
-        );
-        if (activeTrade) {
+        if (poolFund.amount === "0") {
+          continue;
+        }
+
+        let coinTrades = new BN(0, 10);
+        for (const activeTrade of activeTrades) {
+          if (activeTrade.sourceToken === poolFund.token) {
+            coinTrades = coinTrades.add(new BN(activeTrade.sourceAmount, 10));
+          }
+        }
+
+        if (coinTrades.toString() !== "0") {
           const poolFundAmount = new BN(poolFund.amount, 10);
           result.push({
             token: poolFund.token,
             amount: normalizeBigNumber(
-              poolFundAmount
-                .sub(new BN(activeTrade.sourceAmount, 10))
-                .toString()
+              poolFundAmount.sub(coinTrades).toString()
             ),
           });
         } else {
@@ -79,7 +85,7 @@ export default function InstantExchange() {
       }
 
       setPoolTokens(result);
-      setSourceTokens(result.filter((item) => item.amount !== 0));
+      setSourceTokens(result);
       setDestTokens(result);
       setLoading(false);
     }

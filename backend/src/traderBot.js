@@ -33,9 +33,10 @@ export function exchangeToken(activeTrade, from) {
     activeTrade.completeTime = Date.now();
 
     return activeTrade.save();
-  }).catch(() => {
+  }).catch((e) => {
     activeTrade.trade = TRADE_ERROR;
     activeTrade.completeTime = Date.now();
+    activeTrade.errorMessage = e.toString();
 
     return activeTrade.save();
   });
@@ -94,5 +95,6 @@ export default async function traderBot() {
     });
   } catch (e) {
     console.error('error in trading', e);
+    setTimeout(traderBot, 1000);
   }
 }

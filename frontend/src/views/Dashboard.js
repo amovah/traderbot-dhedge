@@ -18,6 +18,8 @@ import BN from "bn.js";
 import { VictoryPie, VictoryTheme } from "victory";
 import { useSelector } from "react-redux";
 import getActiveTrades from "src/api/getActiveTrades";
+import { ACTIVE_TRADE_ROUTE } from "src/routes";
+import { NavLink } from "react-router-dom";
 
 function calculatePrice(a, b) {
   const first = new BN(a, 10);
@@ -94,22 +96,35 @@ export default function Dashboard() {
   }, []);
 
   function generateDescription(item) {
-    let result = `${normalizeBigNumber(item.amount)}/${calculatePrice(
-      item.amount,
-      synPrice.find((i) => i.name === item.token).rate
-    )}$ ${item.token}`;
-
-    const found = activeTrades.find((tr) => tr.sourceToken === item.token);
-    if (found) {
-      result = `${result} - ${normalizeBigNumber(found.sourceAmount)} ${
-        item.token
-      }/${calculatePrice(
-        found.sourceAmount,
-        synPrice.find((i) => i.name === item.token).rate
-      )}$ of your total ${item.token} tokens is in Active Trades`;
+    let coinTrades = new BN(0, 10);
+    for (const activeTrade of activeTrades) {
+      if (activeTrade.sourceToken === item.token) {
+        coinTrades = coinTrades.add(new BN(activeTrade.sourceAmount, 10));
+      }
     }
 
-    return result;
+    return (
+      <span>
+        {normalizeBigNumber(item.amount)}/
+        {calculatePrice(
+          item.amount,
+          synPrice.find((i) => i.name === item.token).rate
+        )}
+        $ {item.token}
+        {coinTrades.toString() !== "0" && (
+          <span>
+            {" "}
+            -- {normalizeBigNumber(coinTrades.toString())}/
+            {calculatePrice(
+              coinTrades.toString(),
+              synPrice.find((i) => i.name === item.token).rate
+            )}
+            $ {item.token} of your total {item.token} tokens are in{" "}
+            <NavLink to={ACTIVE_TRADE_ROUTE}>Active Trades</NavLink>
+          </span>
+        )}
+      </span>
+    );
   }
 
   if (loading) {

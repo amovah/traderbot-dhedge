@@ -1,7 +1,9 @@
 import { Router } from 'express';
 import authMiddleware from 'src/authMiddleware';
 import Trade from 'src/models/Trade';
-import { TRADE_WAITING, TRADE_FULLFIED, TRADE_TRADING } from 'src/TRADE_STATUS';
+import {
+  TRADE_WAITING, TRADE_FULLFIED, TRADE_TRADING, TRADE_ERROR,
+} from 'src/TRADE_STATUS';
 import { exchangeToken } from 'src/traderBot';
 import web3 from 'src/web3';
 
@@ -91,6 +93,16 @@ router.get('/trade/expired', authMiddleware, async (req, res) => {
 router.get('/trade/fullfied', authMiddleware, async (req, res) => {
   try {
     const trades = await Trade.find({ state: TRADE_FULLFIED }).sort({ createdAt: 'desc' });
+
+    res.status(200).json(trades);
+  } catch (e) {
+    res.status(500).json({ status: 500, message: `internal server error - ${e}` });
+  }
+});
+
+router.get('/trade/failed', authMiddleware, async (req, res) => {
+  try {
+    const trades = await Trade.find({ state: TRADE_ERROR }).sort({ createdAt: 'desc' });
 
     res.status(200).json(trades);
   } catch (e) {

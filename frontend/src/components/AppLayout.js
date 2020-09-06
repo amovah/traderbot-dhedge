@@ -8,6 +8,7 @@ import {
   INSTANT_EXCHANGE_ROUTE,
   ACTIVE_TRADE_ROUTE,
   EXPIRED_TRADE_ROUTE,
+  FAILED_TRADE_ROUTE,
 } from "src/routes";
 
 const { Content, Header } = Layout;
@@ -36,6 +37,9 @@ export default function AppLayout({ children }) {
           </Menu.Item>
           <Menu.Item key="6">
             <NavLink to={EXPIRED_TRADE_ROUTE}>Expired Trades</NavLink>
+          </Menu.Item>
+          <Menu.Item key="7">
+            <NavLink to={FAILED_TRADE_ROUTE}>Failed Trades</NavLink>
           </Menu.Item>
         </Menu>
       </Header>
