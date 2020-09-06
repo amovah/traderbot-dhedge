@@ -4,7 +4,7 @@ to run this project, first you need to configure the app by editing `docker-comp
 
 in backend service you need to change these envs:
 
-- `APP_AUTH_TOKEN`: the authorization token or we can way the password you wan to login into your bot dashboard
+- `APP_AUTH_TOKEN`: the authorization token or the password you want to login into your bot dashboard
 - `ETHER_PRIVATE_KEY`: your etherium private key
 - `SMART_CONTRACT_ADDRESS`: your (smart contract) pool address
 - `WEB3_PROVIDER`: infura link or any http provider like infura (I tested only infura).
