@@ -7,13 +7,13 @@ in backend service you need to change these envs:
 - `APP_AUTH_TOKEN`: the authorization token or the password you want to login into your bot dashboard
 - `ETHER_PRIVATE_KEY`: your etherium private key
 - `SMART_CONTRACT_ADDRESS`: your (smart contract) pool address
-- `WEB3_PROVIDER`: infura link or any http provider like infura (I tested only infura).
+- `WEB3_PROVIDER`: infura link or any http web3 provider like infura (I tested only infura).
 - `TOKEN_PRICE_API`: api link which app is going fetch token prices from it.
 
 in front service you need to change these envs:
 
 - `REACT_APP_SMART_CONTRACT_ADDRESS`: your (smart contract) pool address
-- `REACT_APP_WEB3_PROVIDER`: infura link or any http provider like infura (I tested only infura).
+- `REACT_APP_WEB3_PROVIDER`: infura link or any http web3 provider like infura (I tested only infura).
 - `REACT_APP_ETHER_NETWORK`: enter which etheruem network are you working with, the app is using this as prefix for etherscan links.
 - `REACT_APP_TOKEN_PRICE_API`: api link which app is going fetch token prices from it.
 
