@@ -1,0 +1,40 @@
+version: "3"
+services:
+  mongodb:
+    image: mongo:4.4.0
+    volumes:
+      - ./data:/data/db
+
+  backend:
+    build: ./backend
+    ports:
+      - 8080:8080
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
+    environment:
+      DB_URI: mongodb:27017
+      DB_NAME: traderbot
+      APP_AUTH_TOKEN: admin
+      APP_PORT: 8080
+      ETHER_PRIVATE_KEY: "e697_YOUR_ETHER_PRIVATE_KEY_e36f"
+      SMART_CONTRACT_ADDRESS: "0xef_YOUR_POOL_SMART_CONTRACT_ADDRESS_8a9"
+      WEB3_PROVIDER: "https://ropsten.infura.io/v3/INFURA_LINK"
+      TOKEN_PRICE_API: "https://api.dhedge.org/graphql"
+
+  frontend:
+    build: ./frontend
+    ports:
+      - 8081:8081
+    links:
+      - backend
+    depends_on:
+      - backend
+    environment:
+      PORT: 8081
+      REACT_APP_API_SERVER: "http://localhost:8080"
+      REACT_APP_SMART_CONTRACT_ADDRESS: "0xef_YOUR_POOL_SMART_CONTRACT_ADDRESS_8a9"
+      REACT_APP_WEB3_PROVIDER: "https://ropsten.infura.io/v3/INFURA_LINK"
+      REACT_APP_ETHER_NETWORK: "ropsten_ETHER_NETWORK"
+      REACT_APP_TOKEN_PRICE_API: "https://api.dhedge.org/graphql"
