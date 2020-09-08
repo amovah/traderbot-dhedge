@@ -33,8 +33,3 @@ services:
       - backend
     environment:
       PORT: 8081
-      REACT_APP_API_SERVER: "http://localhost:8080"
-      REACT_APP_SMART_CONTRACT_ADDRESS: "0xef_YOUR_POOL_SMART_CONTRACT_ADDRESS_8a9"
-      REACT_APP_WEB3_PROVIDER: "https://ropsten.infura.io/v3/INFURA_LINK"
-      REACT_APP_ETHER_NETWORK: "ropsten_ETHER_NETWORK"
-      REACT_APP_TOKEN_PRICE_API: "https://api.dhedge.org/graphql"

@@ -10,7 +10,7 @@ in backend service you need to change these envs:
 - `WEB3_PROVIDER`: infura link or any http web3 provider like infura (I tested only infura).
 - `TOKEN_PRICE_API`:dhedge graphql api which provide token rates based on dollar.
 
-in front service you need to change these envs:
+then you should go to `frontend/Dockerfile` and edit as below:
 
 - `REACT_APP_SMART_CONTRACT_ADDRESS`: your (smart contract) pool address - must be same with backend service
 - `REACT_APP_WEB3_PROVIDER`: infura link or any http web3 provider like infura (I tested only infura).
