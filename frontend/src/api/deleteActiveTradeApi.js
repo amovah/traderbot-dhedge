@@ -1,6 +1,6 @@
 export default function deleteActiveTradeApi(token, id) {
   return global
-    .fetch(`${global._env_.REACT_APP_API_SERVER}/trade/${id}`, {
+    .fetch(`${process.env.REACT_APP_API_SERVER}/trade/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + token,

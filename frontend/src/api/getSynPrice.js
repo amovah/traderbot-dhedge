@@ -12,6 +12,6 @@ const gplQuery = gql`
 `;
 
 const getSynPrice = () =>
-  request(global._env_.REACT_APP_TOKEN_PRICE_API, gplQuery).catch(() => []);
+  request(process.env.REACT_APP_TOKEN_PRICE_API, gplQuery).catch(() => []);
 
 export default getSynPrice;

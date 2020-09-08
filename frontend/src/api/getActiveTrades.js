@@ -1,6 +1,6 @@
 export default function getActiveTrades(token) {
   return global
-    .fetch(`${global._env_.REACT_APP_API_SERVER}/trade/active`, {
+    .fetch(`${process.env.REACT_APP_API_SERVER}/trade/active`, {
       headers: {
         Authorization: "Bearer " + token,
       },

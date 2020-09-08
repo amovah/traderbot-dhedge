@@ -1,6 +1,6 @@
 export default function instantTradeApi(token, data) {
   return global
-    .fetch(`${global._env_.REACT_APP_API_SERVER}/trade/instant`, {
+    .fetch(`${process.env.REACT_APP_API_SERVER}/trade/instant`, {
       method: "POST",
       headers: {
         Accept: "application/json",

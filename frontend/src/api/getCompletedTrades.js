@@ -1,6 +1,6 @@
 export default function getCompletedTrades(token) {
   return global
-    .fetch(`${global._env_.REACT_APP_API_SERVER}/trade/fullfied`, {
+    .fetch(`${process.env.REACT_APP_API_SERVER}/trade/fullfied`, {
       headers: {
         Authorization: "Bearer " + token,
       },

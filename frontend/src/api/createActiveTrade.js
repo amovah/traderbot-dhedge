@@ -1,6 +1,6 @@
 export default function createActiveTrade(token, data) {
   return global
-    .fetch(`${global._env_.REACT_APP_API_SERVER}/trade`, {
+    .fetch(`${process.env.REACT_APP_API_SERVER}/trade`, {
       method: "POST",
       headers: {
         Accept: "application/json",

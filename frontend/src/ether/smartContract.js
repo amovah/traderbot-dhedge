@@ -53,7 +53,7 @@ const smartContract = new web3.eth.Contract(
       type: "function",
     },
   ],
-  global._env_.REACT_APP_SMART_CONTRACT_ADDRESS
+  process.env.REACT_APP_SMART_CONTRACT_ADDRESS
 );
 
 export default smartContract;

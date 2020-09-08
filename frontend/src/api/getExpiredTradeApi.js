@@ -1,6 +1,6 @@
 export default function getExpiredTradeApi(token) {
   return global
-    .fetch(`${global._env_.REACT_APP_API_SERVER}/trade/expired`, {
+    .fetch(`${process.env.REACT_APP_API_SERVER}/trade/expired`, {
       headers: {
         Authorization: "Bearer " + token,
       },

@@ -4,7 +4,7 @@ import reducers from "./reducers";
 
 const store = createStore(reducers);
 
-if (global._env_.NODE_ENV !== "production") {
+if (process.env.NODE_ENV !== "production") {
   global.store = store;
 }
 
