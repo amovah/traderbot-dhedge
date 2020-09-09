@@ -97,6 +97,14 @@ const columns = [
     },
   },
   {
+    title: "Creation Date",
+    dateIndex: "createdAt",
+    key: "createdAt",
+    render: (text, record) => {
+      return moment(record.createdAt).format("YYYY MMM ddd HH:mm:ss");
+    },
+  },
+  {
     title: "Error Time",
     dataIndex: "completeTime",
     key: "completeTime",

@@ -90,6 +90,14 @@ const columns = [
     key: "expireAfter",
     render: (text) => moment(text).format("YYYY MMM ddd HH:mm:ss"),
   },
+  {
+    title: "Creation Date",
+    dateIndex: "createdAt",
+    key: "createdAt",
+    render: (text, record) => {
+      return moment(record.createdAt).format("YYYY MMM ddd HH:mm:ss");
+    },
+  },
 ];
 
 export default function ExpiredTradeView() {

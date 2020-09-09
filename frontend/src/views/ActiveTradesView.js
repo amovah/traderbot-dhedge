@@ -98,6 +98,14 @@ const columns = (userSystemToken) => [
     },
   },
   {
+    title: "Creation Date",
+    dateIndex: "createdAt",
+    key: "createdAt",
+    render: (text, record) => {
+      return moment(record.createdAt).format("YYYY MMM ddd HH:mm:ss");
+    },
+  },
+  {
     title: "Actions",
     dataIndex: "actions",
     key: "actions",
