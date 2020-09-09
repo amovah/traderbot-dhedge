@@ -39,7 +39,7 @@ export function exchangeToken(activeTrade, from) {
       activeTrade.save();
 
       return new Promise((resolve) => {
-        setTimeout(resolve, 10000);
+        setTimeout(resolve, 60000);
       }).then(() => exchangeToken(activeTrade, from));
     }
 
