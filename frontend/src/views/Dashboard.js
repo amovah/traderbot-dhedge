@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import AppLayout from "src/components/AppLayout";
 import {
   Row,
@@ -15,11 +15,29 @@ import getFund from "src/ether/getFund";
 import getSynPrice from "src/api/getSynPrice";
 import normalizeBigNumber from "src/normalizeBigNumber";
 import BN from "bn.js";
-import { VictoryPie, VictoryTheme } from "victory";
 import { useSelector } from "react-redux";
 import getActiveTrades from "src/api/getActiveTrades";
 import { ACTIVE_TRADE_ROUTE } from "src/routes";
 import { NavLink } from "react-router-dom";
+import { Doughnut } from "react-chartjs-2";
+import mdColors from "src/mdColors";
+
+function shuffle(array) {
+  var currentIndex = array.length,
+    temporaryValue,
+    randomIndex;
+
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
 
 function calculatePrice(a, b) {
   const first = new BN(a, 10);
@@ -36,6 +54,10 @@ export default function Dashboard() {
   const [synPrice, setSynPrice] = useState([]);
   const [poolBalance, setPoolBalance] = useState(0);
   const userSystemToken = useSelector((state) => state.user.token);
+
+  const colorSetTheme = useMemo(() => {
+    return shuffle(mdColors);
+  }, []);
 
   useEffect(() => {
     async function loadData() {
@@ -71,18 +93,35 @@ export default function Dashboard() {
                 );
 
                 return {
-                  x: item.token,
-                  y: priceDollar,
-                  label: `${item.token} ${priceDollar}$`,
+                  data: priceDollar,
+                  label: `${item.token} ${normalizeBigNumber(
+                    amount.toString()
+                  )}`,
                 };
               }
 
               return {
-                x: item.token,
-                y: 0,
-                label: `${item.token} 0 $`,
+                data: 0,
+                label: `${item.token}`,
               };
             })
+            .reduce(
+              (acc, current) => {
+                acc.datasets[0].data.push(current.data);
+                acc.labels.push(current.label);
+
+                return acc;
+              },
+              {
+                datasets: [
+                  {
+                    data: [],
+                    backgroundColor: colorSetTheme,
+                  },
+                ],
+                labels: [],
+              }
+            )
         );
 
         setPoolBalance(normalizeBigNumber(totalBalance.toString(), 36));
@@ -139,9 +178,7 @@ export default function Dashboard() {
     <AppLayout>
       <Row>
         <Col span={11} offset={1}>
-          <div style={{ width: "30vw", margin: "0 auto" }}>
-            <VictoryPie data={chartData} theme={VictoryTheme.material} />
-          </div>
+          <Doughnut data={chartData} />
         </Col>
 
         <Col span={11} offset={1}>
