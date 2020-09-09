@@ -61,10 +61,6 @@ export default function CreateConditionalTrade() {
 
       const result = [];
       for (const poolFund of poolFunds) {
-        if (poolFund.amount === "0") {
-          continue;
-        }
-
         let coinTrades = new BN(0, 10);
         for (const activeTrade of activeTrades) {
           if (activeTrade.sourceToken === poolFund.token) {
@@ -89,7 +85,7 @@ export default function CreateConditionalTrade() {
       }
 
       setPoolTokens(result);
-      setSourceTokens(result);
+      setSourceTokens(result.filter((item) => item.amount !== 0));
       setDestTokens(result);
       setLoading(false);
     }
