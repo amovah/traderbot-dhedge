@@ -34,9 +34,18 @@ export function exchangeToken(activeTrade, from) {
 
     return activeTrade.save();
   }).catch((e) => {
-    activeTrade.trade = TRADE_ERROR;
+    if (e.code === -32000 && activeTrade.tryCount < 10) {
+      activeTrade.tryCount = activeTrade.tryCount + 1;
+      activeTrade.save();
+
+      return new Promise((resolve) => {
+        setTimeout(resolve, 5000);
+      }).then(() => exchangeToken(activeTrade, from));
+    }
+
+    activeTrade.state = TRADE_ERROR;
     activeTrade.completeTime = Date.now();
-    activeTrade.errorMessage = e.toString();
+    activeTrade.errorMessage = JSON.stringify(e, null, 2);
 
     return activeTrade.save();
   });

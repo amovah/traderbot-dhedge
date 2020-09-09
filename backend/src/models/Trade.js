@@ -39,6 +39,10 @@ const schema = new mongoose.Schema({
   errorMessage: {
     type: String,
   },
+  tryCount: {
+    type: Number,
+    default: 0,
+  },
 }, {
   timestamps: true,
 });
