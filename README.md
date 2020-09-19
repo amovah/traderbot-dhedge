@@ -25,4 +25,4 @@ docker-compose up --build -d
 
 now you should be able to visit site on `http://localhost:8081`
 
-to bring down the bot, run this command: `docker-compose down`
+to bring down the bot, run this command: `docker-compose down`.
